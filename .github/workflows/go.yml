@@ -12,6 +12,7 @@ on:
 jobs:
 
   test:
+    environment: Teste_ci
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -35,7 +36,7 @@ jobs:
         echo git: "$TOKEN"
         docker-compose build
       env:
-        TESTE: ${{ secrets.TESTE }}
+        TESTE: ${{ secrets.TesTESTE }}
         TOKEN: ${{ secrets.github_token }}
       
     - name: Create-DB
