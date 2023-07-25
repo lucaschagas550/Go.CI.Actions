@@ -28,7 +28,8 @@ jobs:
     - name: Build-DB
       run: | 
         docker-compose build
-        echo ${{ secrets.TESTE }}
+        echo teste: ${{ secrets.TESTE }}
+        echo git: ${{ secrets.github_token }}
       
       
     - name: Create-DB
