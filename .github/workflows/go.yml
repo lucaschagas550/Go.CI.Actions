@@ -22,7 +22,7 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
-        go-version:  ${{ matrix.go_version }}
+        go-version:  ${{ matrix.go_version }} 
       
       #criar qualquer imagem necessária no Docker Compose
     - name: Build-DB
