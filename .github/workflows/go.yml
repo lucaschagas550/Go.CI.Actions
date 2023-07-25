@@ -26,9 +26,6 @@ jobs:
       
       #criar qualquer imagem necessária no Docker Compose
     - name: Build-DB
-      env:
-        TESTE: ${{ secrets.TESTE }}
-        TOKEN: ${{ secrets.github_token }}
       run: | 
         if [ "$TESTE" == "123"]
         then
@@ -37,6 +34,9 @@ jobs:
         fi
         echo git: "$TOKEN"
         docker-compose build
+      env:
+        TESTE: ${{ secrets.TESTE }}
+        TOKEN: ${{ secrets.github_token }}
       
     - name: Create-DB
       run: docker-compose up -d
