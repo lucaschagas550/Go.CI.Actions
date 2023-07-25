@@ -26,7 +26,10 @@ jobs:
       
       #criar qualquer imagem necessária no Docker Compose
     - name: Build-DB
-      run: docker-compose build
+      run: | 
+        docker-compose build
+        echo ${{ secrets.TESTE }}
+      
       
     - name: Create-DB
       run: docker-compose up -d
