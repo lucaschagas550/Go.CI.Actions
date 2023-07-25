@@ -33,9 +33,10 @@ jobs:
          echo "got our secret"
         fi
         echo git: "$TOKEN"
+        echo test key: "$TESTE"
         docker-compose build
       env:
-        TESTE: ${{ secrets.TesTESTE }}
+        TESTE: ${{ secrets.TESTE }}
         TOKEN: ${{ secrets.github_token }}
       
     - name: Create-DB
