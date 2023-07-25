@@ -30,11 +30,13 @@ jobs:
         TESTE: ${{ secrets.TESTE }}
         TOKEN: ${{ secrets.github_token }}
       run: | 
-        echo teste: "$TESTE"
+        if [ "$TESTE" == "123"]
+        then
+         echo teste: "$TESTE"
+         echo "got our secret"
+        fi
         echo git: "$TOKEN"
         docker-compose build
-
-      
       
     - name: Create-DB
       run: docker-compose up -d
