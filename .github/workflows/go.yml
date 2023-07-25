@@ -26,10 +26,13 @@ jobs:
       
       #criar qualquer imagem necessária no Docker Compose
     - name: Build-DB
+      env:
+        TESTE: ${{ secrets.TESTE }}
+        TOKEN: ${{ secrets.github_token }}
       run: | 
         docker-compose build
-        echo teste: ${{ secrets.TESTE }}
-        echo git: ${{ secrets.github_token }}
+        echo teste: "$TESTE"
+        echo git: "$TOKEN"
       
       
     - name: Create-DB
