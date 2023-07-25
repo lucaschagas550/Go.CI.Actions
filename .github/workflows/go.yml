@@ -27,7 +27,7 @@ jobs:
       #criar qualquer imagem necessária no Docker Compose
     - name: Build-DB
       run: | 
-        if [ "$TESTE" == "123"]
+        if [ "$TESTE" == "123" ]
         then
          echo teste: "$TESTE"
          echo "got our secret"
