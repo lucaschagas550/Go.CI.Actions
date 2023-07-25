@@ -30,9 +30,10 @@ jobs:
         TESTE: ${{ secrets.TESTE }}
         TOKEN: ${{ secrets.github_token }}
       run: | 
-        docker-compose build
         echo teste: "$TESTE"
         echo git: "$TOKEN"
+        docker-compose build
+
       
       
     - name: Create-DB
