@@ -53,10 +53,12 @@ jobs:
         fi
         echo git: "$TOKEN"
         echo test key: "$TESTE"
+        echo TOKENENV: "$TOKENENV"
         docker-compose build
       env:
         TESTE: ${{ secrets.TESTE }}
         TOKEN: ${{ secrets.github_token }}
+        TOKENENV: ${{ secrets.TESTE_CI }}
       
     - name: Create-DB
       run: docker-compose up -d
