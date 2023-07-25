@@ -5,24 +5,6 @@ name: Go
 
 on:
   workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
-        type: choice
-        options:
-        - info
-        - warning
-        - debug
-      tags:
-        description: 'Test scenario tags'
-        required: false
-        type: boolean
-      environment:
-        description: 'Environment to run tests against'
-        type: environment
-        required: true
   push:
     branches: [ "main" ]
   pull_request:
@@ -53,12 +35,10 @@ jobs:
         fi
         echo git: "$TOKEN"
         echo test key: "$TESTE"
-        echo TOKENENV: "$TOKENENV"
         docker-compose build
       env:
         TESTE: ${{ secrets.TESTE }}
         TOKEN: ${{ secrets.github_token }}
-        TOKENENV: ${{ secrets.TESTE_CI }}
       
     - name: Create-DB
       run: docker-compose up -d
