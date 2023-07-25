@@ -12,7 +12,6 @@ on:
 jobs:
 
   test:
-    environment: Teste_ci
     runs-on: ubuntu-latest
     strategy:
       matrix:
