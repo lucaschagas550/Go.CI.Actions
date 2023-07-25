@@ -1,1 +1,14 @@
+name: Docker
 
+on:
+  workflow_call: #outro rotina que chama esta rotina
+
+jobs:
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3 #quer utilizar dados que esta no repositorio atualmente
+
+    - name: setup Docker Build
+      uses: docker/setup-buildx-action@v2.9.1
