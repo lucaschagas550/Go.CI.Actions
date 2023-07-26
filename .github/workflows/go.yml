@@ -68,3 +68,4 @@ jobs:
   docker:
     needs: build
     uses: ./.github/workflows/Docker.yml
+    secrets: inherit #Permite usar os secrets em outro arquivo no caso o Docker.yml
