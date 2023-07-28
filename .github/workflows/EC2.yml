@@ -4,3 +4,16 @@ on:
   workflow_call:
 
 jobs:
+
+  EC2:
+     runs-on: ubuntu-latest
+     steps:
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v3.0.2
+        with:
+    # Artifact name
+          name: programa
+    # Destination path
+          path: main
+      - uses: actions/checkout@v3 #quer utilizar dados que esta no repositorio atualmente, como paginas e arquivos estaticos
+
