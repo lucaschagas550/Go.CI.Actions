@@ -16,4 +16,14 @@ jobs:
     # Destination path
           path: main
       - uses: actions/checkout@v3 #quer utilizar dados que esta no repositorio atualmente, como paginas e arquivos estaticos
+      
+      - name: Deploy to Staging server
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          TARGET: /home/${{ secrets.REMOTE_USER }}
+          EXCLUDE: "postgres-data" #Pasta nao sera enviada
+
 
