@@ -25,5 +25,19 @@ jobs:
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           TARGET: /home/${{ secrets.REMOTE_USER }}
           EXCLUDE: "postgres-data" #Pasta nao sera enviada
-
+          
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
+        with:
+            host: ${{ secrets.REMOTE_HOST }}
+            username: ${{ secrets.REMOTE_USER }}
+            key: ${{ secrets.SSH_PRIVATE_KEY }}
+            port: 22
+            script: | #| varias linhas de codigo, configurando variaveis de ambiente para a maquina ec2, a partir do que foi definido nos secrets
+              export HOST=${{ secrets.DBHOST }} 
+              export USER=${{ secrets.DBUSER }}
+              export PASSWORD=${{ secrets.DBPASSWORD }}
+              export DBNAME=${{ secrets.DBNAME }}
+              export DBPORT=${{ secrets.DBPORT }}
+              export PORT=8000
 
