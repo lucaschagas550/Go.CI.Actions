@@ -26,6 +26,7 @@ jobs:
           TARGET: /home/${{ secrets.REMOTE_USER }}
           EXCLUDE: "postgres-data" #Pasta nao sera enviada
           
+      #chmod para dar permissao, e nohup para  finalizar a sessão e para rodar o nosso programa em segundo plano.
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@master
         with:
@@ -40,4 +41,8 @@ jobs:
               export DBNAME=${{ secrets.DBNAME }}
               export DBPORT=${{ secrets.DBPORT }}
               export PORT=8000
+              chmod +x main
+              nohup ./main > nohup.out 2> nohup.err < /dev/null &
+              
+              
 
