@@ -41,4 +41,5 @@ jobs:
         # Push is a shorthand for --output=type=registry
         push: true
         # List of tags
-        tags: lucaschagas550/go_ci:${{github.ref_name}} # ref_name obtem o nome da branch
+        #tags: lucaschagas550/go_ci:${{github.ref_name}} # ref_name obtem o nome da branch
+        tags: lucaschagas550/go_ci:${{github.run_number}} #run_number Um número exclusivo para cada execução
