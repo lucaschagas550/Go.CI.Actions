@@ -16,7 +16,9 @@ COPY ./main main
 RUN chmod +x main
 
 #Go nao tras junto os arquivos estaticos, entao obtemos os arquivos da pasta template
-COPY ./templates/ templates/
+#./templates/ ultima barra porque eh uma pasta
+#templates/ copiando para uma outra pasta
+COPY ./templates/ templates/ 
 
 #Executa o arqivo main que esta no dentro do container
 CMD [ "./main" ]
