@@ -17,6 +17,9 @@ jobs:
     
     - name: Obtendo arquivo da tarefa
       run: aws ecs describe-task-definition --task-definition Tarefa_API-GO --query taskDefinition > task-definition.json
+
+    - name: copia do task-definition #Para rollback
+      run: cp task-definition.json task-definition.json.old #Copiando o arquivo do passo anterior e deixando como backup
       
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: task-def #usar a saida dessa passo em outros passos
