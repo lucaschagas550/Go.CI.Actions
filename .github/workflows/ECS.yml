@@ -18,7 +18,7 @@ jobs:
     - name: Obtendo arquivo da tarefa
       run: aws ecs describe-task-definition --task-definition Tarefa_API-GO --query taskDefinition > task-definition.json
 
-    - name: copia do task-definition #Para rollback
+    - name: copia do task-definition #Para o rollback
       run: cp task-definition.json task-definition.json.old #Copiando o arquivo do passo anterior e deixando como backup
       
     - name: Fill in the new image ID in the Amazon ECS task definition
@@ -40,6 +40,22 @@ jobs:
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
         task-definition: ${{ steps.task-def.outputs.task-definition }} #Pega a saida de task-definition que eh o id: task-def
+        service: Servico_API-Go
+        cluster: API-Go
+        wait-for-service-stability: true
+
+    - name: Requisição #Testar aplicacao para verificar se nao tem problemas
+      continue-on-error: true #Continuar mesmo se der erro
+      run: echo "REQUEST=0" >> $GITHUB_ENV ; sleep 30s ; wget LB-API-Go-908865819.us-east-2.elb.amazonaws.com:8000/leo || echo "REQUEST=1" >> $GITHUB_ENV
+      #>> Redireciona a saida para uma variavel de ambiente, no caso o Request, e colocar no $GITHUB_ENV
+      #wget LB-API-Go-908865819.us-east-2.elb.amazonaws.com:8000/leo endereco da api, se retornar 0 deu erro, se for outro valor seta no request=1
+      #; separa os comandos para ser executado um por vez
+
+    - name: Deploy Amazon ECS task definition #Rollback
+      if: ${{ env.REQUEST != 0 }} #verifica valor da variavel de ambiente REQUEST que foi no step anterior
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      with:
+        task-definition: task-definition.json.old
         service: Servico_API-Go
         cluster: API-Go
         wait-for-service-stability: true
