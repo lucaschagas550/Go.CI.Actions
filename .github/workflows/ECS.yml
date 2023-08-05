@@ -47,11 +47,12 @@ jobs:
     - name: Requisição #Testar aplicacao para verificar se nao tem problemas
       continue-on-error: true #Continuar mesmo se der erro
       run: echo "REQUEST=0" >> $GITHUB_ENV ; sleep 30s ; wget LB-API-Go-908865819.us-east-2.elb.amazonaws.com:8000/leo || echo "REQUEST=1" >> $GITHUB_ENV
+      #REQUEST = 0 Significa que o comando foi feito com sucesso
       #>> Redireciona a saida para uma variavel de ambiente, no caso o Request, e colocar no $GITHUB_ENV
-      #wget LB-API-Go-908865819.us-east-2.elb.amazonaws.com:8000/leo endereco da api, se retornar 0 deu erro, se for outro valor seta no request=1
+      #wget LB-API-Go-908865819.us-east-2.elb.amazonaws.com:8000/leo endereco da api, se retornar 0 deu certo, se for outro valor seta no request=1
       #; separa os comandos para ser executado um por vez
 
-    - name: Deploy Amazon ECS task definition #Rollback
+    - name: Deploy Amazon ECS task definition #Faz o Rollback
       if: ${{ env.REQUEST != 0 }} #verifica valor da variavel de ambiente REQUEST que foi no step anterior
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
