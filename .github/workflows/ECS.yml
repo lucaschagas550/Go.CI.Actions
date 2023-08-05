@@ -7,6 +7,7 @@ jobs:
 
   ECS: # Servico de container da aws
     runs-on: ubuntu-latest
+    continue-on-error: true #continua a pipeline mesmo com erro no job
     steps:
     - name: configurando credenciais da AWS
       uses: aws-actions/configure-aws-credentials@v1
@@ -60,3 +61,4 @@ jobs:
         service: Servico_API-Go
         cluster: API-Go
         wait-for-service-stability: true
+        
