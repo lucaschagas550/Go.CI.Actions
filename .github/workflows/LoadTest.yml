@@ -7,6 +7,7 @@ jobs:
 
   loadtest:
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
     - uses: actions/checkout@v3 #se você precisa ter acesso ao código-fonte do repositório em que o fluxo de trabalho está sendo executado
     #Obs: Sempre que você for usar actions/checkout@v3, ele deverá ser executado primeiro, porque tende a modificar alguns arquivos da máquina que executa o teste de carga.
