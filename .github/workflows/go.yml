@@ -90,7 +90,7 @@ jobs:
 
   Load_Test:
       needs: [docker] #Exemplo de dois needs
-      if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success'
+      if: github.event_name == 'workflow_run'
       #if: ${{ github.ref_name =='Homolog' }} #Executa somente na branch de homolog
       uses: ./.github/workflows/LoadTest.yml
       secrets: inherit #Permite usar os secrets em outro arquivo no caso o Docker.yml
