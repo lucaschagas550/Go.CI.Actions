@@ -42,8 +42,8 @@ jobs:
         packages: |
           locust
           
-    - run: |
-        echo "from locust import HttpUser, TaskSet, task, between" >> locustfile.py
+    - run: | #>> direciona a saida para o arquivo locustfile.py 
+        echo "from locust import HttpUser, TaskSet, task, between" >> locustfile.py 
         echo "" >> locustfile.py
         echo "class UserTasks(TaskSet):" >> locustfile.py
         echo "	@task(1)" >> locustfile.py
