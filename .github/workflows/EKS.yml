@@ -21,11 +21,12 @@ jobs:
     - run: git clone https://github.com/leollo98/Infra_CI_Kubernetes.git
 
     - name: HashiCorp - Setup Terraform
-      uses: hashicorp/setup-terraform@v2.0.3
+      uses: hashicorp/setup-terraform@v2.0.3 #Configurando o terraform
       
-    - run: terraform -chdir=Infra_CI_Kubernetes/env/Homolog init
+    - run: terraform -chdir=Infra_CI_Kubernetes/env/Homolog init # Isso é um sinalizador (flag) que define o diretório no qual o comando Terraform será executado
+     #'init' é usado para inicializar um projeto Terraform.
 
-    - run: terraform -chdir=Infra_CI_Kubernetes/env/Homolog apply -auto-approve
+    - run: terraform -chdir=Infra_CI_Kubernetes/env/Homolog apply -auto-approve #Apply queremos aplicar o terraform, e o precisamos aprovar o q esta sendo aplicado com -auto-approve como parametro
     
     - run: echo "$(terraform -chdir=Infra_CI_Kubernetes/env/Homolog output -raw IP_db)"
       id: URL
