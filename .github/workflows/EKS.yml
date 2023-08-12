@@ -28,20 +28,20 @@ jobs:
 
     - run: terraform -chdir=Infra_CI_Kubernetes/env/Homolog apply -auto-approve #Apply queremos aplicar o terraform, e o precisamos aprovar o q esta sendo aplicado com -auto-approve como parametro
     
-    - run: echo "$(terraform -chdir=Infra_CI_Kubernetes/env/Homolog output -raw IP_db)"
+    - run: echo "$(terraform -chdir=Infra_CI_Kubernetes/env/Homolog output -raw IP_db)" #echo garante que saira uma string, $ garante que tudo dentro sera executado como um comando e saira uma string
       id: URL
     
     - name: Kubectl tool installer
-      uses: Azure/setup-kubectl@v3
+      uses: Azure/setup-kubectl@v3 #usar kubectl para interagir com o kubernets
       
     - run: aws sts get-caller-identity
     
-    - run: aws eks update-kubeconfig --region us-west-2 --name homolog2
+    - run: aws eks update-kubeconfig --region us-west-2 --name homolog2 #Criar arquivo do kubectl config, com a regiao e o cluster
     
     - run: kubectl get svc
     
-    - run: kubectl delete secret dbhost --ignore-not-found
-    - run: kubectl create secret generic dbhost --from-literal=HOST=${{ steps.URL.outputs.stdout }}
+    - run: kubectl delete secret dbhost --ignore-not-found #deleta o segredo. Se nao existir o segredo ele ignora
+    - run: kubectl create secret generic dbhost --from-literal=HOST=${{ steps.URL.outputs.stdout }} # obtendo a saida padrao (existe uma saida de erro tbm) do step, com stdout
     
     - run: kubectl delete secret dbport --ignore-not-found
     - run: kubectl create secret generic dbport --from-literal=DBPORT=${{secrets.DBPORT}}
@@ -60,4 +60,4 @@ jobs:
     
     - run: kubectl apply -f Infra_CI_Kubernetes/go.yaml 
     
-    - run: kubectl set image deployment/go-api go=leonardosartorello/go_ci:${{github.run_number}}
+    - run: kubectl set image deployment/go-api go=leonardosartorello/go_ci:${{github.run_number}} #Atualizando a aplicacao
