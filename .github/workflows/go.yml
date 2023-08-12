@@ -82,16 +82,21 @@ jobs:
   #    uses: ./.github/workflows/EC2.yml
    #   secrets: inherit #Permite usar os secrets em outro arquivo no caso o Docker.yml
       
-  Deploy_ECS:
-      needs: [build, docker] #Exemplo de dois needs
-      uses: ./.github/workflows/ECS.yml
-      secrets: inherit #Permite usar os secrets em outro arquivo no caso o Docker.yml
+  #Deploy_ECS:
+      #needs: [build, docker] #Exemplo de dois needs
+      #uses: ./.github/workflows/ECS.yml
+      #secrets: inherit #Permite usar os secrets em outro arquivo no caso o Docker.yml
 
-  Load_Test:
-      needs: [docker] #Exemplo de dois needs
+  Deploy_EKS:
+      needs: [build, docker] #Exemplo de dois needs
+      uses: ./.github/workflows/EKS.yml
+      secrets: inherit #Permite usar os secrets em outro arquivo no caso o Docker.yml     
+
+  #Load_Test:
+     # needs: [docker] #Exemplo de dois needs
       #if: ${{ github.ref_name =='Homolog' }} #Executa somente na branch de homolog
-      uses: ./.github/workflows/LoadTest.yml
-      secrets: inherit #Permite usar os secrets em outro arquivo no caso o Docker.yml
+      #uses: ./.github/workflows/LoadTest.yml
+      #secrets: inherit #Permite usar os secrets em outro arquivo no caso o Docker.yml
     
     
     
